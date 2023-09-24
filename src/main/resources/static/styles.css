@@ -1,6 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
+    background-color: cornflowerblue;
+    color: white;
 }
 
 h1 {
