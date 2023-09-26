@@ -3,10 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>API Results</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
 <body>
+    <style>
+        body {
+    text-align: center;
+    background-color: cornflowerblue;
+    color: white;
+}
+
+h1 {
+    color: #333;
+    margin-top: 20px;
+}
+
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 80%;
+}
+
+th, td {
+    border: 1px solid #333;
+    padding: 8px;
+}
+
+th {
+    background-color: #333;
+    color: #fff;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+    </style>
     
     
     <h1 class="text-center">Resultados de la API</h1>
@@ -21,6 +56,7 @@
                 <th>Curso</th>
                 <th>Estatus</th>
                 <th>Mensaje</th>
+                
             </tr>
         </thead>
         <!-- Table data will be populated here -->
@@ -30,10 +66,10 @@
 
     </table>
    
-    <a href="form.html" >
-        <button type="button" class="btn btn-outline-dark" >formulario</button>
-    </a>
 </div>
+<a href="form.html" >
+    <button type="button" class="btn btn-outline-dark" >formulario</button>
+</a>
     
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
