@@ -3,6 +3,8 @@ package com.Restful.Challenges.Api.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,57 +17,58 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Restful.Challenges.Api.Modelos.DtoTopico;
 import com.Restful.Challenges.Api.Modelos.Topico;
-import com.Restful.Challenges.Api.repository.TopicoRepository;
+import com.Restful.Challenges.Api.Service.TopicoServices;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/topico")
 public class TopicoController {
 
+
     @Autowired
-    private TopicoRepository topicRepository;
+    private TopicoServices topicoServices;
 
     @GetMapping("/{id}")
     public ResponseEntity<Topico> saludo(@PathVariable Long id) {
-        Topico topi = topicRepository.findById(id).get();
-        return ResponseEntity.ok(topi);
-         
+        return ResponseEntity.ok(topicoServices.saludo(id));
+
     }
 
     @GetMapping
-    public List<Topico> ListarTopicos() {
-        return topicRepository.findAll();
+    @Transactional
+    public List<Topico> ListarTopicos(Pageable pageable) {
+        return topicoServices.ListarTopicos(pageable);
     }
 
     @PostMapping
     public ResponseEntity<Void> AddTopico(@RequestBody @Valid DtoTopico dto) {
-        topicRepository.save(new Topico(dto));
+
+        if(topicoServices.AddTopico(dto)) {
         return ResponseEntity.created(null).build();
+        }else{
+        return ResponseEntity.badRequest().build();
+        }
+
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> Update(@PathVariable Long id, @RequestBody DtoTopico dto) {
-
-        Topico topico = topicRepository.findById(id).get();
-      
-
-            topico.setAutor(dto.autor());
-            topico.setCurso(dto.curso());
-            topico.setEstatus_topico(dto.estatus_tpc());
-            topico.setMensaje(dto.mensaje());
-            topico.setTitulo(dto.titulo());
-            topicRepository.save(topico);
-            return ResponseEntity.ok().build();
+    public ResponseEntity<Void> Update(@PathVariable Long id, @RequestBody DtoTopico dto) throws NotFoundException{
+        if (topicoServices.Update(id, dto)) {
+            return ResponseEntity.notFound().build();
+        }else{
+        return ResponseEntity.ok().build();
+        }
 
 
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        Topico topico = topicRepository.findById(id).get();
-        topicRepository.delete(topico);
+        topicoServices.delete(id);
         return ResponseEntity.noContent().build();
 
     }
+
 }

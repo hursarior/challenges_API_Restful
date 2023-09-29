@@ -5,5 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.Restful.Challenges.Api.Modelos.Topico;
 
 @Repository
-public interface TopicoRepository extends JpaRepository<Topico,Long> {   
+public interface TopicoRepository extends JpaRepository<Topico, Long> {
+    boolean existsByTitulo(String titulo);
 }

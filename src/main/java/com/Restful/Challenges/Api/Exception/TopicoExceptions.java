@@ -11,12 +11,12 @@ import jakarta.persistence.EntityNotFoundException;
 public class TopicoExceptions {
     
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity tratarError404(){
+    public ResponseEntity<Void> tratarError404(){
         return ResponseEntity.notFound().build();
     }
 
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity TratarError500(){
+    public ResponseEntity<Void> TratarError500(){
         return ResponseEntity.notFound().build();
     }
 
