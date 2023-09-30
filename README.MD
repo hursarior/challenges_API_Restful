@@ -10,6 +10,7 @@ API Centrada en tópicos, permite a los usuarios:
 * Eliminar un tópico
 ## Tecnologías utilizadas
 
+* Maven 
 * Spring boot 3
 * Java 17 
 * Mysql
